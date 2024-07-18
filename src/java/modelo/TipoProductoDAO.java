@@ -30,6 +30,7 @@ public class TipoProductoDAO {
                 tipo.setNombreTipoProducto(rs.getString(2));
                 tipo.setDescripcion(rs.getString(3));
                 tipo.setTemporada(rs.getString(4));
+                listaTipoProducto.add(tipo);
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -82,6 +83,7 @@ public class TipoProductoDAO {
             ps.setString(1, tipo.getNombreTipoProducto());
             ps.setString(2, tipo.getDescripcion());
             ps.setString(3, tipo.getTemporada());
+            ps.setInt(4, tipo.getCodigoTipoProducto());
             ps.executeUpdate();
         }catch(Exception e ){
             e.printStackTrace();
