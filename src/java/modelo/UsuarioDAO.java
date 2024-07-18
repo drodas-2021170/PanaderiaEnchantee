@@ -123,6 +123,7 @@ public class UsuarioDAO {
             ps.setString(4, usu.getCorreoUsuario());
             ps.setString(5, usu.getUsuario());
             ps.setString(6, usu.getContrasena());
+            ps.setInt(7,usu.getCodigoUsuario());
             ps.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
