@@ -9,7 +9,7 @@
     </head> 
     <body>
         <div class="container mt-4 col-lg-4">
-            <div class="card col-sm-10">
+            <div class="card col-sm-10" style="background-color:#F5F5DC ">
                 <div class="card-body">
                     <form class="formg-sign" action="Validar" method="POST">
                         <div class="form-group text-center">
