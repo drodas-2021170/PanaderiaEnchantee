@@ -58,7 +58,7 @@ public class Producto {
         this.precio = precio;
     }
 
-    public boolean isDisponibilidad() {
+    public boolean getDisponibilidad() {
         return disponibilidad;
     }
 
