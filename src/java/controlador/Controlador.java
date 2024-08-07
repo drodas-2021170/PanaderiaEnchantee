@@ -3,23 +3,95 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.TipoProducto;
+import modelo.TipoProductoDAO;
 import modelo.Usuario;
 import modelo.UsuarioDAO;
 
 public class Controlador extends HttpServlet {
     Usuario usuario = new Usuario();
     UsuarioDAO usuarioDao = new UsuarioDAO();
+    TipoProducto tipoProducto = new TipoProducto();
+    TipoProductoDAO tipoProductoDao = new TipoProductoDAO();
+    int codTipoProducto;
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String menu = request.getParameter("menu");
-        // String accion = request.getParameter("accion");
+        String accion = request.getParameter("accion");
         if(menu.equals("Principal")){
             request.getRequestDispatcher("Principal.jsp").forward(request, response);
+        } else if(menu.equals("Home")){
+            request.getRequestDispatcher("Home.jsp").forward(request, response);
+        } else if(menu.equals("Usuario")){
+            request.getRequestDispatcher("Usuario.jsp").forward(request, response);
+        } else if(menu.equals("TipoProducto")){
+            switch (accion) {
+                case "Listar":
+                    List listarTipoProducto = tipoProductoDao.Listar();
+                    request.setAttribute("TipoProductos", listarTipoProducto  );
+                    
+                    break;
+                case "Agregar":
+                    String nombreTipo = request.getParameter("txtNombreTipoProducto");
+                    String descripcion = request.getParameter("txtDescripcion");
+                    String temporada = request.getParameter("txtTemporada");
+                    tipoProducto.setNombreTipoProducto(nombreTipo);
+                    tipoProducto.setDescripcion(descripcion);
+                    tipoProducto.setTemporada(temporada);
+                    tipoProductoDao.Agregar(tipoProducto);
+                    request.getRequestDispatcher("Controlador?menu=TipoProducto&accion=Listar").forward(request, response);
+                    break;
+                case "Editar":
+                    codTipoProducto = Integer.parseInt(request.getParameter("codigoTipoProducto"));
+                    TipoProducto tp = tipoProductoDao.listarCodigoTipoProducto(codTipoProducto);
+                    request.setAttribute("tipoProducto", tp);
+                    request.getRequestDispatcher("Controlador?menu=TipoProducto&accion=Listar").forward(request, response);
+                    break;
+                case "Actualizar":
+                    String NombreTipo = request.getParameter("txtNombreTipoProducto");
+                    String DescripcionTipo = request.getParameter("txtDescripcion");
+                    String TemporadaTipo = request.getParameter("txtTemporada");
+                    tipoProducto.setNombreTipoProducto(NombreTipo);
+                    tipoProducto.setDescripcion(DescripcionTipo);
+                    tipoProducto.setTemporada(TemporadaTipo);
+                    tipoProducto.setCodigoTipoProducto(codTipoProducto);
+                    tipoProductoDao.Actualizar(tipoProducto);
+                    request.getRequestDispatcher("Controlador?menu=TipoProducto&accion=Listar").forward(request, response);
+                    break;
+                case "Eliminar":
+                    codTipoProducto = Integer.parseInt(request.getParameter("codigoTipoProducto"));
+                    tipoProductoDao.Eliminar(codTipoProducto);
+                    request.getRequestDispatcher("Controlador?menu=TipoProducto&accion=Listar").forward(request, response);
+                    break;
+            }
+            
+            request.getRequestDispatcher("TipoProducto.jsp").forward(request, response);
+        } else if(menu.equals("TipoUsuario")){
+            request.getRequestDispatcher("TipoUsuario.jsp").forward(request, response);
+        } else if(menu.equals("Especiales")){
+            request.getRequestDispatcher("Especial.jsp").forward(request, response);
+        } else if(menu.equals("Direccion")){
+            request.getRequestDispatcher("Direccion.jsp").forward(request, response);
+        } else if(menu.equals("Locales")){
+            request.getRequestDispatcher("Locales.jsp").forward(request, response);
+        } else if(menu.equals("Producto")){
+            request.getRequestDispatcher("Producto.jsp").forward(request, response);
+        } else if(menu.equals("Promocion")){
+            request.getRequestDispatcher("Promocion.jsp").forward(request, response);
+        } else if(menu.equals("DetalleCarrito")){
+            request.getRequestDispatcher("DetalleCarrito.jsp").forward(request, response);
+        } else if(menu.equals("Pedido")){
+            request.getRequestDispatcher("Pedido.jsp").forward(request, response);
+        } else if(menu.equals("Carrito")){
+            request.getRequestDispatcher("Carrito.jsp").forward(request, response);
+        } else if(menu.equals("Factura")){
+            request.getRequestDispatcher("Factura.jsp").forward(request, response);
         }
      
     }
