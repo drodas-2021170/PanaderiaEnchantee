@@ -17,9 +17,35 @@ public class Controlador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String menu = request.getParameter("menu");
-        // String accion = request.getParameter("accion");
+        String accion = request.getParameter("accion");
         if(menu.equals("Principal")){
             request.getRequestDispatcher("Principal.jsp").forward(request, response);
+        } else if(menu.equals("Home")){
+            request.getRequestDispatcher("Home.jsp").forward(request, response);
+        } else if(menu.equals("Usuario")){
+            request.getRequestDispatcher("Usuario.jsp").forward(request, response);
+        } else if(menu.equals("TipoProducto")){
+            request.getRequestDispatcher("TipoProducto.jsp").forward(request, response);
+        } else if(menu.equals("TipoUsuario")){
+            request.getRequestDispatcher("TipoUsuario.jsp").forward(request, response);
+        } else if(menu.equals("Especiales")){
+            request.getRequestDispatcher("Especial.jsp").forward(request, response);
+        } else if(menu.equals("Direccion")){
+            request.getRequestDispatcher("Direccion.jsp").forward(request, response);
+        } else if(menu.equals("Locales")){
+            request.getRequestDispatcher("Locales.jsp").forward(request, response);
+        } else if(menu.equals("Producto")){
+            request.getRequestDispatcher("Producto.jsp").forward(request, response);
+        } else if(menu.equals("Promocion")){
+            request.getRequestDispatcher("Promocion.jsp").forward(request, response);
+        } else if(menu.equals("DetalleCarrito")){
+            request.getRequestDispatcher("DetalleCarrito.jsp").forward(request, response);
+        } else if(menu.equals("Pedido")){
+            request.getRequestDispatcher("Pedido.jsp").forward(request, response);
+        } else if(menu.equals("Carrito")){
+            request.getRequestDispatcher("Carrito.jsp").forward(request, response);
+        } else if(menu.equals("Factura")){
+            request.getRequestDispatcher("Factura.jsp").forward(request, response);
         }
      
     }
