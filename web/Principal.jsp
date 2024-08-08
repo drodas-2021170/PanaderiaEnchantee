@@ -24,16 +24,16 @@
                   <a  style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=Home" target="myFrame">Home <span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
-                <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=TipoUsuario" target="myFrame">Tipo Usuario</a>
+                <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=TipoUsuario&accion=Listar" target="myFrame">Tipo Usuario</a>
               </li>
               <li class="nav-item">
-                  <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=Usuario" target="myFrame">Usuario</a>
+                  <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=Usuario&accion=Listar" target="myFrame">Usuario</a>
               </li>
               <li class="nav-item">
-                <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=TipoProducto" target="myFrame">Tipo Producto</a>
+                <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=TipoProducto&accion=Listar" target="myFrame">Tipo Producto</a>
               </li>
               <li class="nav-item">
-                <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=Especiales" target="myFrame">Especiales</a>
+                <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=Especiales&accion=listar" target="myFrame">Especiales</a>
               </li>
               <li class="nav-item">
                 <a style="margin-left: 10px; border: none" class="btn btn-outline-light" href="Controlador?menu=Direccion" target="myFrame">Dirección</a>
