@@ -17,7 +17,7 @@ public class TipoProductoDAO {
     
     // Metodo Listar
     
-    public List listar(){
+    public List Listar(){
         String sql = "Select * from TipoProducto";
         List<TipoProducto> listaTipoProducto = new ArrayList<>();
         try{
@@ -39,15 +39,15 @@ public class TipoProductoDAO {
     }
     
     // Metodo Agregar
-    public int agregar(TipoProducto tipo){
-        String sql = "insert into TipoProducto(codigoTipoProducto, nombreTipoProducto, descripcion, temporada) values(?,?,?,?)";
+    public int Agregar(TipoProducto tipo){
+        String sql = "Insert into TipoProducto(nombreTipoProducto, descripcion, temporada) values(?,?,?)";
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
             ps.setString(1,tipo.getNombreTipoProducto());
             ps.setString(2, tipo.getDescripcion());
             ps.setString(3, tipo.getTemporada());
-            ps.executeQuery();
+            ps.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -64,6 +64,7 @@ public class TipoProductoDAO {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
+                tipo.setCodigoTipoProducto(rs.getInt(1));
                 tipo.setNombreTipoProducto(rs.getString(2));
                 tipo.setDescripcion(rs.getString(3));
                 tipo.setTemporada(rs.getString(4));
@@ -75,7 +76,7 @@ public class TipoProductoDAO {
     }
     
     // Metodo Actualizar 
-    public int actualizar(TipoProducto tipo){
+    public int Actualizar(TipoProducto tipo){
         String sql = "Update TipoProducto set nombreTipoProducto = ?, descripcion = ?, temporada = ? where codigoTipoProducto = ?";
         try{
             con = cn.Conexion();
@@ -94,11 +95,11 @@ public class TipoProductoDAO {
     
     // Metodo Eliminar
     public void Eliminar(int id){
-        String sql = "delete from TipoProducto where codigoTipoProducto = "+id;
+        String sql = "Delete from TipoProducto where codigoTipoProducto = "+id;
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
-            ps.executeQuery();
+            ps.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
         }

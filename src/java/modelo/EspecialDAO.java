@@ -43,8 +43,7 @@ public class EspecialDAO {
     
     //Metodo Agregar
     public int agregar (Especial esp){
-        String sql = "insert into Especial(fechaEspecial, cantidadPorciones, masa, relleno, cobertura, descripcionEspecial)\n" +
-                    "values ('?', '?', '?', '?', '?', '?');";
+        String sql = "insert into Especial(fechaEspecial, cantidadPorciones, masa, relleno, cobertura, descripcionEspecial) values (?, ?, ?, ?, ?, ?)";
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
@@ -54,7 +53,7 @@ public class EspecialDAO {
             ps.setString(4, esp.getRelleno());
             ps.setString(5, esp.getCobertura());
             ps.setString(6, esp.getDescripcionEspecial());
-            
+            ps.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -85,7 +84,7 @@ public class EspecialDAO {
     
     // Metodo Editar
     public int actualizar (Especial esp){
-        String sql = "Update Especial set  fechaEspecial= ?, cantidadPorciones = ?, masa = ?,relleno = ?, cobertura = ?, descripcionEspecial=? where codigoEspecial = ?";
+        String sql = "Update Especial set fechaEspecial= ?, cantidadPorciones = ?, masa = ?,relleno = ?, cobertura = ?, descripcionEspecial= ? where codigoEspecial = ?";
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
@@ -95,6 +94,7 @@ public class EspecialDAO {
             ps.setString(4, esp.getRelleno());
             ps.setString(5, esp.getCobertura());
             ps.setString(6, esp.getDescripcionEspecial());
+            ps.setInt(7, esp.getCodigoEspecial());
             ps.executeUpdate();
             
         }catch(Exception e){
@@ -104,7 +104,7 @@ public class EspecialDAO {
     }
     
     //Metodo Eliminar
-    public void elimianr (int id){
+    public void eliminar (int id){
         String sql ="delete from especial where codigoEspecial ="+id;
         try{
             con = cn.Conexion();
