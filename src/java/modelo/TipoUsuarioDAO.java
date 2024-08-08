@@ -49,7 +49,7 @@ public class TipoUsuarioDAO {
             ps.setString(1, user.getNombreTipoUsuario());
             ps.setString(2, user.getDescripcion());
             ps.setString(3, user.getPermisos());
-            ps.setBoolean(4, user.isEstado());
+            ps.setBoolean(4, user.getEstado());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,16 +82,15 @@ public class TipoUsuarioDAO {
     //Metodo Editar
 
     public int actualizar(TipoUsuario user) {
-        String sql = "Update TipoUsuario set"
-                + "nombreTipoUsuario = ?, descripcion = ?, permisos = ?, estado = ?"
-                + "where codigoTipoUsuario = ?";
+        String sql = "Update TipoUsuario set nombreTipoUsuario = ?, descripcion = ?, permisos = ?, estado = ? where codigoTipoUsuario = ?";
         try {
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
             ps.setString(1, user.getNombreTipoUsuario());
             ps.setString(2, user.getDescripcion());
             ps.setString(3, user.getPermisos());
-            ps.setBoolean(4, user.isEstado());
+            ps.setBoolean(4, user.getEstado());
+            ps.setInt(5, user.getCodigoTipoUsuario());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

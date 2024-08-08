@@ -3,23 +3,198 @@ package controlador;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import modelo.Especial;
+import modelo.EspecialDAO;
+import modelo.TipoProducto;
+import modelo.TipoProductoDAO;
+import modelo.TipoUsuario;
+import modelo.TipoUsuarioDAO;
 import modelo.Usuario;
 import modelo.UsuarioDAO;
 
 public class Controlador extends HttpServlet {
     Usuario usuario = new Usuario();
     UsuarioDAO usuarioDao = new UsuarioDAO();
+    TipoProducto tipoProducto = new TipoProducto();
+    TipoProductoDAO tipoProductoDao = new TipoProductoDAO();
+    int codTipoProducto;
+    Especial especial = new Especial();
+    EspecialDAO especialDao = new EspecialDAO();
+    TipoUsuario tipoUsuario = new TipoUsuario();
+    TipoUsuarioDAO tipoUsuarioDao = new TipoUsuarioDAO();
+    int codEspecial;
+    int codTipoUsuario;
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String menu = request.getParameter("menu");
-        // String accion = request.getParameter("accion");
+        String accion = request.getParameter("accion");
         if(menu.equals("Principal")){
             request.getRequestDispatcher("Principal.jsp").forward(request, response);
+        } else if(menu.equals("Home")){
+            request.getRequestDispatcher("Home.jsp").forward(request, response);
+        } else if(menu.equals("Usuario")){
+            request.getRequestDispatcher("Usuario.jsp").forward(request, response);
+        } else if(menu.equals("TipoProducto")){
+            switch (accion) {
+                case "Listar":
+                    List listarTipoProducto = tipoProductoDao.Listar();
+                    request.setAttribute("TipoProductos", listarTipoProducto  );
+                    
+                    break;
+                case "Agregar":
+                    String nombreTipo = request.getParameter("txtNombreTipoProducto");
+                    String descripcion = request.getParameter("txtDescripcion");
+                    String temporada = request.getParameter("txtTemporada");
+                    tipoProducto.setNombreTipoProducto(nombreTipo);
+                    tipoProducto.setDescripcion(descripcion);
+                    tipoProducto.setTemporada(temporada);
+                    tipoProductoDao.Agregar(tipoProducto);
+                    request.getRequestDispatcher("Controlador?menu=TipoProducto&accion=Listar").forward(request, response);
+                    break;
+                case "Editar":
+                    codTipoProducto = Integer.parseInt(request.getParameter("codigoTipoProducto"));
+                    TipoProducto tp = tipoProductoDao.listarCodigoTipoProducto(codTipoProducto);
+                    request.setAttribute("tipoProducto", tp);
+                    request.getRequestDispatcher("Controlador?menu=TipoProducto&accion=Listar").forward(request, response);
+                    break;
+                case "Actualizar":
+                    String NombreTipo = request.getParameter("txtNombreTipoProducto");
+                    String DescripcionTipo = request.getParameter("txtDescripcion");
+                    String TemporadaTipo = request.getParameter("txtTemporada");
+                    tipoProducto.setNombreTipoProducto(NombreTipo);
+                    tipoProducto.setDescripcion(DescripcionTipo);
+                    tipoProducto.setTemporada(TemporadaTipo);
+                    tipoProducto.setCodigoTipoProducto(codTipoProducto);
+                    tipoProductoDao.Actualizar(tipoProducto);
+                    request.getRequestDispatcher("Controlador?menu=TipoProducto&accion=Listar").forward(request, response);
+                    break;
+                case "Eliminar":
+                    codTipoProducto = Integer.parseInt(request.getParameter("codigoTipoProducto"));
+                    tipoProductoDao.Eliminar(codTipoProducto);
+                    request.getRequestDispatcher("Controlador?menu=TipoProducto&accion=Listar").forward(request, response);
+                    break;
+            }
+            
+            request.getRequestDispatcher("TipoProducto.jsp").forward(request, response);
+        } else if(menu.equals("TipoUsuario")){
+            switch(accion) {
+                case "Listar":
+                    List<TipoUsuario> listaTipoUsuario = tipoUsuarioDao.listar();
+                    request.setAttribute("tipoUsuarios", listaTipoUsuario);
+                    break;
+                case "Agregar":
+                    String nombreTipoUsuario = request.getParameter("txtNombreTipoUsuario");
+                    String descripcion = request.getParameter("txtDescripcion");
+                    String permisos = request.getParameter("txtPermisos");
+                    boolean estado = Boolean.parseBoolean(request.getParameter("txtEstado"));
+                    tipoUsuario.setNombreTipoUsuario(nombreTipoUsuario);
+                    tipoUsuario.setDescripcion(descripcion);
+                    tipoUsuario.setPermisos(permisos);
+                    tipoUsuario.setEstado(estado);
+                    tipoUsuarioDao.agregar(tipoUsuario);
+                    request.getRequestDispatcher("Controlador?menu=TipoUsuario&accion=Listar").forward(request, response);
+                    break;
+                case "Editar":
+                    codTipoUsuario = Integer.parseInt(request.getParameter("codigoTipoUsuario"));
+                    TipoUsuario tu = tipoUsuarioDao.listarCodigoTipoUsuario(codTipoUsuario);
+                    request.setAttribute("tipoUsuario", tu);
+                    request.getRequestDispatcher("Controlador?menu=TipoUsuario&accion=Listar").forward(request, response);
+                    break;
+                case "Actualizar":
+                    String nomTipoUsuario = request.getParameter("txtNombreTipoUsuario");
+                    String descTipoUsuario = request.getParameter("txtDescripcion");
+                    String permTipoUsuario = request.getParameter("txtPermisos");
+                    boolean estTipoUsuario = Boolean.parseBoolean(request.getParameter("txtEstado"));
+                    tipoUsuario.setCodigoTipoUsuario(codTipoUsuario);
+                    tipoUsuario.setNombreTipoUsuario(nomTipoUsuario);
+                    tipoUsuario.setDescripcion(descTipoUsuario);
+                    tipoUsuario.setPermisos(permTipoUsuario);
+                    tipoUsuario.setEstado(estTipoUsuario);
+                    tipoUsuarioDao.actualizar(tipoUsuario);
+                    request.getRequestDispatcher("Controlador?menu=TipoUsuario&accion=Listar").forward(request, response);
+                    break;
+                case "Eliminar":
+                    codTipoUsuario = Integer.parseInt(request.getParameter("codigoTipoUsuario"));
+                    tipoUsuarioDao.eliminar(codTipoUsuario);
+                    request.getRequestDispatcher("Controlador?menu=TipoUsuario&accion=Listar").forward(request, response);
+                    break;
+            }
+            request.getRequestDispatcher("TipoUsuario.jsp").forward(request, response);
+        } else if(menu.equals("Especiales")){
+            switch(accion){
+                case "Listar":
+                    List listaEspeciales = especialDao.listar();
+                    request.setAttribute("especiales", listaEspeciales);
+                break;
+                case "Agregar":
+                    String feEspecial = request.getParameter("txtFechaEspecial");
+                    String cantiPorciones = request.getParameter("txtCantidadPorciones");
+                    String masa = request.getParameter("txtMasa");
+                    String relleno = request.getParameter("txtRelleno");
+                    String cobertura = request.getParameter("txtCobertura");
+                    String desEspecial = request.getParameter("txtDescripcionEspecial");
+                    especial.setFechaEspecial(Date.valueOf(feEspecial));
+                    especial.setCantidadPorciones(cantiPorciones);
+                    especial.setMasa(masa);
+                    especial.setRelleno(relleno);
+                    especial.setCobertura(cobertura);
+                    especial.setDescripcionEspecial(desEspecial);
+                    especialDao.agregar(especial);
+                    request.getRequestDispatcher("Controlador?menu=Especiales&accion=Listar").forward(request, response);
+                break;
+                case "Editar":
+                    codEspecial = Integer.parseInt(request.getParameter("codigoEspecial"));
+                    Especial e = especialDao.listarCodigoEspecial(codEspecial);
+                    request.setAttribute("especial", e);
+                    request.getRequestDispatcher("Controlador?menu=Especiales&accion=Listar").forward(request, response);
+                break;
+                case "Actualizar":
+                String fechaEmp = request.getParameter("txtFechaEspecial");
+                String cantidadEmp = request.getParameter("txtCantidadPorciones");
+                String masaEmp = request.getParameter("txtMasa");
+                String rellenoEmp = request.getParameter("txtRelleno");
+                String coberturaEmp = request.getParameter("txtCobertura");
+                String descripcionEmp = request.getParameter("txtDescripcionEspecial");
+                especial.setFechaEspecial(Date.valueOf(fechaEmp));
+                especial.setCantidadPorciones(cantidadEmp);
+                especial.setMasa(masaEmp);
+                especial.setRelleno(rellenoEmp);
+                especial.setCobertura(coberturaEmp);
+                especial.setDescripcionEspecial(descripcionEmp);
+                especial.setCodigoEspecial(codEspecial);
+                especialDao.actualizar(especial);
+                request.getRequestDispatcher("Controlador?menu=Especiales&accion=Listar").forward(request, response);
+                break;
+                case "Eliminar":
+                    codEspecial = Integer.parseInt(request.getParameter("codigoEspecial"));
+                    especialDao.eliminar(codEspecial);
+                    request.getRequestDispatcher("Controlador?menu=Especiales&accion=Listar").forward(request, response);
+                break;
+            }	
+            request.getRequestDispatcher("Especial.jsp").forward(request, response);
+        } else if(menu.equals("Direccion")){
+            request.getRequestDispatcher("Direccion.jsp").forward(request, response);
+        } else if(menu.equals("Locales")){
+            request.getRequestDispatcher("Locales.jsp").forward(request, response);
+        } else if(menu.equals("Producto")){
+            request.getRequestDispatcher("Producto.jsp").forward(request, response);
+        } else if(menu.equals("Promocion")){
+            request.getRequestDispatcher("Promocion.jsp").forward(request, response);
+        } else if(menu.equals("DetalleCarrito")){
+            request.getRequestDispatcher("DetalleCarrito.jsp").forward(request, response);
+        } else if(menu.equals("Pedido")){
+            request.getRequestDispatcher("Pedido.jsp").forward(request, response);
+        } else if(menu.equals("Carrito")){
+            request.getRequestDispatcher("Carrito.jsp").forward(request, response);
+        } else if(menu.equals("Factura")){
+            request.getRequestDispatcher("Factura.jsp").forward(request, response);
         }
      
     }

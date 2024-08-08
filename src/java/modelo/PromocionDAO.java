@@ -88,7 +88,7 @@ public class PromocionDAO {
     }
     
     public void eliminar(int id){
-        String sql = "DELETE FROM Promocion WHERE codigoPromocion = ?";
+        String sql = "DELETE FROM Promocion WHERE codigoPromocion = "+id;
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);

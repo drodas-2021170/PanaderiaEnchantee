@@ -1,6 +1,6 @@
 
 package modelo;
-import java.util.Date;
+import java.sql.Date;
 
 public class Especial {
     private int codigoEspecial;
@@ -8,17 +8,19 @@ public class Especial {
     private String cantidadPorciones;
     private String masa;
     private String relleno;
+    private String cobertura;
     private String descripcionEspecial;
 
     public Especial() {
     }
 
-    public Especial(int codigoEspecial, Date fechaEspecial, String cantidadPorciones, String masa, String relleno, String descripcionEspecial) {
+    public Especial(int codigoEspecial, Date fechaEspecial, String cantidadPorciones, String masa, String relleno, String cobertura, String descripcionEspecial) {
         this.codigoEspecial = codigoEspecial;
         this.fechaEspecial = fechaEspecial;
         this.cantidadPorciones = cantidadPorciones;
         this.masa = masa;
         this.relleno = relleno;
+        this.cobertura = cobertura;
         this.descripcionEspecial = descripcionEspecial;
     }
 
@@ -62,6 +64,14 @@ public class Especial {
         this.relleno = relleno;
     }
 
+    public String getCobertura() {
+        return cobertura;
+    }
+
+    public void setCobertura(String cobertura) {
+        this.cobertura = cobertura;
+    }
+
     public String getDescripcionEspecial() {
         return descripcionEspecial;
     }
@@ -69,6 +79,10 @@ public class Especial {
     public void setDescripcionEspecial(String descripcionEspecial) {
         this.descripcionEspecial = descripcionEspecial;
     }
+
+    
+
+    
     
     
     

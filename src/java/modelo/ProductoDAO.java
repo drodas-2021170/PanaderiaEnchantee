@@ -105,7 +105,7 @@ public class ProductoDAO {
     }
     
     public void eliminar(int id){
-        String sql = "DELETE FROM Producto WHERE codigoProducto = ?";
+        String sql = "DELETE FROM Producto WHERE codigoProducto = "+id;
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);

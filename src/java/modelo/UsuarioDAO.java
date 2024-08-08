@@ -133,7 +133,7 @@ public class UsuarioDAO {
     
     //Eliminar
     public void eliminar(int id){
-        String sql = "delete from Usuario where codigoUsuario=?"+id;
+        String sql = "delete from Usuario where codigoUsuario="+id;
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
