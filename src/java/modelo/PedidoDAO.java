@@ -34,15 +34,16 @@ public class PedidoDAO {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
-                Pedido pedido = new Pedido();
-                pedido.setCodigoPedido(rs.getInt(1));
-                pedido.setNombreReceptor(rs.getString(2));
-                pedido.setApellidoReceptor(rs.getString(3));
-                pedido.setTelefonoReceptor(rs.getString(4));
-                pedido.setTelefonoSecundario(rs.getString(5));
-                pedido.setCorreoReceptor(rs.getString(6));
-                pedido.setCodigoDireccion(rs.getInt(7));
-                pedido.setCodigoUsuario(rs.getInt(8));
+                Pedido pedi = new Pedido();
+                pedi.setCodigoPedido(rs.getInt(1));
+                pedi.setNombreReceptor(rs.getString(2));
+                pedi.setApellidoReceptor(rs.getString(3));
+                pedi.setTelefonoReceptor(rs.getString(4));
+                pedi.setTelefonoSecundario(rs.getString(5));
+                pedi.setCorreoReceptor(rs.getString(6));
+                pedi.setCodigoDireccion(rs.getInt(7));
+                pedi.setCodigoUsuario (rs.getInt(8));
+                listaPedido.add(pedi);
             }           
         }catch(Exception e){
             e.printStackTrace();
@@ -75,25 +76,25 @@ public class PedidoDAO {
     
     //Bucar por codigo
     public Pedido listarCodigoPedido(int id){
-        Pedido pedido = new Pedido();
+        Pedido pe = new Pedido();
         String sql = "Select * From Pedido where CodigoPedido = " + id;
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
-                pedido.setNombreReceptor(rs.getString(2));
-                pedido.setApellidoReceptor(rs.getString(3));
-                pedido.setTelefonoReceptor(rs.getString(4));
-                pedido.setTelefonoSecundario(rs.getString(5));
-                pedido.setCorreoReceptor(rs.getString(6));
-                pedido.setCodigoDireccion(rs.getInt(7));
-                pedido.setCodigoUsuario(rs.getInt(8));
+                pe.setNombreReceptor(rs.getString(2));
+                pe.setApellidoReceptor(rs.getString(3));
+                pe.setTelefonoReceptor(rs.getString(4));
+                pe.setTelefonoSecundario(rs.getString(5));
+                pe.setCorreoReceptor(rs.getString(6));
+                pe.setCodigoDireccion(rs.getInt(7));
+                pe.setCodigoUsuario(rs.getInt(8));
             }
         }catch(Exception e){
             e.printStackTrace();
         }
-        return pedido;
+        return pe;
     }
     
     
@@ -120,10 +121,12 @@ public class PedidoDAO {
     
     //Eliminar
     public void eliminar(int id){
-        String sql = "Delete from Pedido where codigoPedido = ?";
+        String sql = "Delete from Pedido where codigoPedido = "+id;
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
+            
+            
             ps.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();

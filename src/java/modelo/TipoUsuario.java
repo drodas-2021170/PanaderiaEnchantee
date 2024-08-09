@@ -52,7 +52,7 @@ public class TipoUsuario {
         this.permisos = permisos;
     }
 
-    public boolean isEstado() {
+    public boolean getEstado() {
         return estado;
     }
 

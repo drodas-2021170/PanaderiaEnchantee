@@ -44,7 +44,7 @@ public class LocalesDAO {
    }
    //Agregar
    public int agregar (Locales loc){
-   String sql = "INSERT INTO Locales (codigoLocal, nombreLocal, horariosLocal,horarioEspecialLocal, telefonoLocal,codigoDireccion)VALUES (?,? ,? ,? ,?,? )";
+   String sql = "insert into Locales (codigoLocal, nombreLocal, horariosLocal,horariosEspecialLocal, telefonoLocal,codigoDireccion)VALUES (?,? ,? ,? ,?,? )";
    try{
        con = cn.Conexion();
        ps = con.prepareStatement(sql);
@@ -73,6 +73,7 @@ public class LocalesDAO {
            ps = con.prepareStatement(sql);
            rs = ps.executeQuery();
        while(rs.next()){
+           loc.setCodigoLocal(rs.getInt(1));
            loc.setNombreLocal(rs.getString(2));
            loc.setHorariosLocal(rs.getString(3));
            loc.setHorarioEspecialLocal(rs.getString(4));
@@ -89,7 +90,7 @@ public class LocalesDAO {
    //Actualizar
    
    public int actualizar (Locales loc){
-       String sql = "UPDATE Locales SET nombreLocal=? ,horariosLocal = ?, horarioEspecialLocal = ?,telefonoLocal=? WHERE codigoLocal = ?";
+       String sql = "UPDATE Locales SET nombreLocal=? ,horariosLocal = ?, horariosEspecialLocal = ?,telefonoLocal=? WHERE codigoLocal = ?";
        try{
            con = cn.Conexion();
            ps = con.prepareStatement(sql);
