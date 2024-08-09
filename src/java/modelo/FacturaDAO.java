@@ -10,6 +10,8 @@ import java.util.List;
 
 
 public class FacturaDAO {
+    
+    // variables para el CRUD    
     Conexion cn = new Conexion();
     Connection con;
     PreparedStatement ps;
@@ -23,12 +25,10 @@ public class FacturaDAO {
     public List listar(){
         String sql = "select * from Factura";
         List <Factura> listaFactura = new ArrayList<>();
-        
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            
             while(rs.next()){
                 Factura fac = new Factura();
                 fac.setCodigoFactura(rs.getInt(1));
@@ -118,3 +118,4 @@ public class FacturaDAO {
         }
     }   
 }
+

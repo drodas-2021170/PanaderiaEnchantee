@@ -97,6 +97,7 @@ public class UsuarioDAO {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
+                usu.setCodigoUsuario(rs.getInt(1));
                 usu.setNombresUsuario(rs.getString(2));
                 usu.setApellidosUsuario(rs.getString(3));
                 usu.setTelefonoUsuario(rs.getString(4));

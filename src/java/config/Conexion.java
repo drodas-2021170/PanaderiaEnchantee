@@ -9,11 +9,11 @@ public class Conexion {
   public Connection Conexion(){
       try{
           Class.forName("com.mysql.jdbc.Driver");
-          conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBPanaderiaPasteleriaEnchantee?useSSL=false","Dilan","Dilan2007");
+          conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/DBPanaderiaPasteleriaEnchantee?useSSL=false","IN5AM","admin");
       }catch(Exception e){
           e.printStackTrace();
       }
       return conexion;
   }
-  
+  // este es
 }

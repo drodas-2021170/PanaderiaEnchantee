@@ -2,59 +2,61 @@ package modelo;
 
 
 public class Direccion {
-    private int Direccion;
-    private double total;
-    private double impuesto;
-    private String descripcionCarrito;
-    private int codigoDetalleCarrito;
-    private int codigoPedido;
+    private int codigoDireccion;
+    private String direccionCompleta;
+    private String departamento;
+    private String municipio;
+    private String otro;
 
-    public int getDireccion() {
-        return Direccion;
+    public Direccion() {
     }
 
-    public void setDireccion(int Direccion) {
-        this.Direccion = Direccion;
+    public Direccion(int codigoDireccion, String direccionCompleta, String departamento, String municipio, String otro) {
+        this.codigoDireccion = codigoDireccion;
+        this.direccionCompleta = direccionCompleta;
+        this.departamento = departamento;
+        this.municipio = municipio;
+        this.otro = otro;
     }
 
-    public double getTotal() {
-        return total;
+    public int getCodigoDireccion() {
+        return codigoDireccion;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+    public void setCodigoDireccion(int codigoDireccion) {
+        this.codigoDireccion = codigoDireccion;
     }
 
-    public double getImpuesto() {
-        return impuesto;
+    public String getDireccionCompleta() {
+        return direccionCompleta;
     }
 
-    public void setImpuesto(double impuesto) {
-        this.impuesto = impuesto;
+    public void setDireccionCompleta(String direccionCompleta) {
+        this.direccionCompleta = direccionCompleta;
     }
 
-    public String getDescripcionCarrito() {
-        return descripcionCarrito;
+    public String getDepartamento() {
+        return departamento;
     }
 
-    public void setDescripcionCarrito(String descripcionCarrito) {
-        this.descripcionCarrito = descripcionCarrito;
+    public void setDepartamento(String departamento) {
+        this.departamento = departamento;
     }
 
-    public int getCodigoDetalleCarrito() {
-        return codigoDetalleCarrito;
+    public String getMunicipio() {
+        return municipio;
     }
 
-    public void setCodigoDetalleCarrito(int codigoDetalleCarrito) {
-        this.codigoDetalleCarrito = codigoDetalleCarrito;
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
     }
 
-    public int getCodigoPedido() {
-        return codigoPedido;
+    public String getOtro() {
+        return otro;
     }
 
-    public void setCodigoPedido(int codigoPedido) {
-        this.codigoPedido = codigoPedido;
+    public void setOtro(String otro) {
+        this.otro = otro;
     }
     
 }
