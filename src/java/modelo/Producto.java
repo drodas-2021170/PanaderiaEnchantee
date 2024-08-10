@@ -1,5 +1,7 @@
 package modelo;
 
+import java.io.InputStream;
+
 public class Producto {
     private int codigoProducto;
     private String nombreProducto;
@@ -7,14 +9,14 @@ public class Producto {
     private double precio;
     private boolean disponibilidad;
     private int existencia;
-    private byte [] imagen;
+    private InputStream imagen;
     private String ingredientes;
     private int codigoTipoProducto;
 
     public Producto() {
     }
 
-    public Producto(int codigoProducto, String nombreProducto, String descripcion, double precio, boolean disponibilidad, int existencia, byte[] imagen, String ingredientes, int codigoTipoProducto) {
+    public Producto(int codigoProducto, String nombreProducto, String descripcion, double precio, boolean disponibilidad, int existencia, InputStream imagen, String ingredientes, int codigoTipoProducto) {
         this.codigoProducto = codigoProducto;
         this.nombreProducto = nombreProducto;
         this.descripcion = descripcion;
@@ -74,11 +76,11 @@ public class Producto {
         this.existencia = existencia;
     }
 
-    public byte[] getImagen() {
+    public InputStream getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(InputStream imagen) {
         this.imagen = imagen;
     }
 

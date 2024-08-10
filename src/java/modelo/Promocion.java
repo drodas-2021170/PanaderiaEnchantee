@@ -1,19 +1,17 @@
 package modelo;
 
-import java.util.Date;
-
 public class Promocion {
     private int codigoPromocion;
     private String nombrePromocion;
-    private Date fechaInicio;
-    private Date fechaFin;
+    private String fechaInicio;
+    private String fechaFin;
     private double precioPromocion;
     private int codigoProducto;
 
     public Promocion() {
     }
 
-    public Promocion(int codigoPromocion, String nombrePromocion, Date fechaInicio, Date fechaFin, double precioPromocion, int codigoProducto) {
+    public Promocion(int codigoPromocion, String nombrePromocion, String fechaInicio, String fechaFin, double precioPromocion, int codigoProducto) {
         this.codigoPromocion = codigoPromocion;
         this.nombrePromocion = nombrePromocion;
         this.fechaInicio = fechaInicio;
@@ -38,19 +36,19 @@ public class Promocion {
         this.nombrePromocion = nombrePromocion;
     }
 
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public String getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
 

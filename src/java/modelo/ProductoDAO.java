@@ -1,12 +1,18 @@
 package modelo;
 
 import config.Conexion;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletResponse;
 
+//PRUEBA
 public class ProductoDAO {
     Conexion cn = new Conexion();
     Connection con;
@@ -29,7 +35,7 @@ public class ProductoDAO {
                 product.setPrecio(rs.getDouble(4));
                 product.setDisponibilidad(rs.getBoolean(5));
                 product.setExistencia(rs.getInt(6));
-                product.setImagen(rs.getBytes(7));
+                product.setImagen(rs.getBinaryStream(7));
                 product.setIngredientes(rs.getString(8));
                 product.setCodigoTipoProducto(rs.getInt(9));
                 listaProducto.add(product);
@@ -51,7 +57,7 @@ public class ProductoDAO {
             ps.setDouble(4, product.getPrecio());
             ps.setBoolean(5, product.getDisponibilidad());
             ps.setInt(6, product.getExistencia());
-            ps.setBytes(7, product.getImagen());
+            ps.setBlob(7, product.getImagen());
             ps.setString(8, product.getIngredientes());
             ps.setInt(9, product.getCodigoTipoProducto());
             ps.executeUpdate();
@@ -63,18 +69,19 @@ public class ProductoDAO {
     
     public Producto listarCodigoProducto(int id){
         Producto product = new Producto();
-        String sql = "SELECT * FROM Producto WHERE codigoProducto = ?";
+        String sql = "SELECT * FROM Producto WHERE codigoProducto = "+id;
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while(rs.next()){
+                product.setCodigoProducto(rs.getInt(1));
                 product.setNombreProducto(rs.getString(2));
                 product.setDescripcion(rs.getString(3));
                 product.setPrecio(rs.getDouble(4));
                 product.setDisponibilidad(rs.getBoolean(5));
                 product.setExistencia(rs.getInt(6));
-                product.setImagen(rs.getBytes(7));
+                product.setImagen(rs.getBinaryStream(7));
                 product.setIngredientes(rs.getString(8));
                 product.setCodigoTipoProducto(rs.getInt(9));
             }
@@ -84,7 +91,34 @@ public class ProductoDAO {
         return product;
     }
     
-    public int editar(Producto product){
+    public void listarImagen(int id, HttpServletResponse response){
+        String sql = "SELECT * FROM Producto WHERE codigoProducto = "+id;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        BufferedOutputStream bufferedOutputStream = null;
+        response.setContentType("image/*");
+        
+        try{
+            outputStream = response.getOutputStream();
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                inputStream = rs.getBinaryStream("imagen");
+            }
+            bufferedInputStream = new BufferedInputStream(inputStream);
+            bufferedOutputStream = new BufferedOutputStream(outputStream);
+            int i=0;
+            while((i=bufferedInputStream.read())!=-1){
+                bufferedOutputStream.write(i);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    public int actualizar(Producto product){
         String sql = "UPDATE Producto SET nombreProducto = ?, descripcion = ?, precio = ?, disponibilidad = ?, existencia = ?, imagen = ?, ingredientes = ? WHERE codigoProducto = ?";
         try{
             con = cn.Conexion();
@@ -94,7 +128,7 @@ public class ProductoDAO {
             ps.setDouble(3, product.getPrecio());
             ps.setBoolean(4, product.getDisponibilidad());
             ps.setInt(5, product.getExistencia());
-            ps.setBytes(6, product.getImagen());
+            ps.setBlob(6, product.getImagen());
             ps.setString(7, product.getIngredientes());
             ps.setInt(8, product.getCodigoProducto());
             ps.executeUpdate();
@@ -105,7 +139,7 @@ public class ProductoDAO {
     }
     
     public void eliminar(int id){
-        String sql = "DELETE FROM Producto WHERE codigoProducto = ?";
+        String sql = "DELETE FROM Producto WHERE codigoProducto = "+id;
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
